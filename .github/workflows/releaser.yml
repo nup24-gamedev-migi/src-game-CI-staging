@@ -42,6 +42,12 @@ jobs:
     needs: jar-stuff
     runs-on: ubuntu-latest
     steps:
+      - name: Zip release
+        uses: vimtor/action-zip@v1
+        with:
+          files: game.jar LICENSE
+          recursive: false
+          dest: ./game-jar.zip
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
@@ -50,4 +56,4 @@ jobs:
             body: ${{ github.event.pull_request.body }}
             make_latest: true
             files: |
-              game.jar
+              game-jar.zip
