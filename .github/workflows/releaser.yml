@@ -36,7 +36,7 @@ jobs:
       - name: Generate jars
         run: "./gradlew desktop:dist"
       - name: Move to root
-        run: "mv ./desktop/build/libs/*.jar /release/game.jar"
+        run: "mv desktop/build/libs/*.jar ./game.jar"
   ship-jars:
     name: Ship the jars
     needs: jar-stuff
