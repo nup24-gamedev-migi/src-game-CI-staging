@@ -28,6 +28,8 @@ jobs:
     container: cimg/openjdk:20.0
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Generate jars
         run: "./gradlew desktop:dist"
       - name: Move to root
@@ -36,7 +38,7 @@ jobs:
     name: Ship the jars
     needs: jar-stuff
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
