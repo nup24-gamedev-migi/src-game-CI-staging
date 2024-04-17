@@ -13,21 +13,38 @@ public class MyGame extends ApplicationAdapter {
 
     private final String[][][] level = new String[][][] {
             {
+                    {"x", "x", "x", "x", "x"},
+                    {"x", "o", "o", "t", "x"},
+                    {"x", "o", "o", "o", "x"},
+                    {"x", "e", "o", "o", "x"},
+                    {"x", "x", "x", "x", "x"}
+            },
+            {
+                    {"x", "x", "x", "x", "x"},
+                    {"x", "o", "o", "o", "x"},
+                    {"e", "o", "x", "o", "t"},
+                    {"x", "o", "o", "o", "x"},
+                    {"x", "x", "x", "x", "x"}
+            },
+            {
                     {"x", "x", "x", "x", "x", "x", "x"},
-                    {"x", "o", "o", "o", "o", "t", "x"},
-                    {"x", "o", "o", "o", "o", "o", "x"},
-                    {"x", "o", "o", "o", "o", "o", "x"},
-                    {"x", "o", "o", "o", "o", "o", "x"},
-                    {"x", "e", "o", "o", "o", "o", "x"},
+                    {"x", "o", "o", "o", "o", "o", "o"},
+                    {"e", "o", "b", "o", "o", "x", "t"},
+                    {"x", "o", "o", "o", "o", "x", "o"},
                     {"x", "x", "x", "x", "x", "x", "x"}
             },
             {
                     {"x", "x", "x", "x", "x", "x", "x"},
+                    {"x", "o", "b", "x", "o", "o", "x"},
                     {"e", "o", "o", "o", "o", "o", "t"},
-                    {"x", "o", "o", "o", "o", "o", "x"},
-                    {"x", "o", "o", "o", "o", "o", "x"},
-                    {"x", "o", "o", "o", "o", "o", "x"},
-                    {"x", "o", "o", "o", "o", "o", "x"},
+                    {"x", "o", "o", "x", "b", "o", "x"},
+                    {"x", "x", "x", "x", "x", "x", "x"}
+            },
+            {
+                    {"x", "x", "x", "x", "x", "x", "x"},
+                    {"x", "o", "o", "b", "x", "o", "x"},
+                    {"e", "o", "b", "b", "x", "o", "t"},
+                    {"x", "o", "o", "o", "x", "o", "x"},
                     {"x", "x", "x", "x", "x", "x", "x"}
             },
             {
@@ -99,6 +116,18 @@ public class MyGame extends ApplicationAdapter {
                     }
                     case Input.Keys.NUM_4: {
                         logic = loadHardcodedLevelAndGenerateLogic(4);
+                        break;
+                    }
+                    case Input.Keys.NUM_5: {
+                        logic = loadHardcodedLevelAndGenerateLogic(5);
+                        break;
+                    }
+                    case Input.Keys.NUM_6: {
+                        logic = loadHardcodedLevelAndGenerateLogic(6);
+                        break;
+                    }
+                    case Input.Keys.NUM_7: {
+                        logic = loadHardcodedLevelAndGenerateLogic(7);
                         break;
                     }
                 }
