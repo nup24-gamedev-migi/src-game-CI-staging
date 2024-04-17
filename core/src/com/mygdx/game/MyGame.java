@@ -118,6 +118,18 @@ public class MyGame extends ApplicationAdapter {
                         logic = loadHardcodedLevelAndGenerateLogic(4);
                         break;
                     }
+                    case Input.Keys.NUM_5: {
+                        logic = loadHardcodedLevelAndGenerateLogic(5);
+                        break;
+                    }
+                    case Input.Keys.NUM_6: {
+                        logic = loadHardcodedLevelAndGenerateLogic(6);
+                        break;
+                    }
+                    case Input.Keys.NUM_7: {
+                        logic = loadHardcodedLevelAndGenerateLogic(7);
+                        break;
+                    }
                 }
                 return true;
             }
