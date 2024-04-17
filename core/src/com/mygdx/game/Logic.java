@@ -172,6 +172,11 @@ public class Logic {
         return isTreasureStolen;
     }
 
+    public boolean getIsAtEntrance() {
+        return getCell(playerPos.x, playerPos.y).type == CellType.ENTRANCE;
+    }
+
+
     public void movePlayer(final MoveDirection dir) {
         if (moveThing(playerPos, dir)) {
             playerPos = playerPos.applyDir(dir);
