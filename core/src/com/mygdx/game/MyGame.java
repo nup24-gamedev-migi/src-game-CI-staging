@@ -218,7 +218,7 @@ public class MyGame extends ApplicationAdapter {
     @Override
     public void render() {
         view.view(logic);
-        if (logic.getIsTreasureStolen() && logic.getIsAtEntrance()) {
+        if (logic.isTreasureStolen() && logic.isPlayerAtEntrace()) {
             switchToNextLevel();
         }
     }

@@ -168,11 +168,11 @@ public class Logic {
         return Collections.unmodifiableList(history);
     }
 
-    public boolean getIsTreasureStolen() {
+    public boolean isTreasureStolen() {
         return isTreasureStolen;
     }
 
-    public boolean getIsAtEntrance() {
+    public boolean isPlayerAtEntrace() {
         return getCell(playerPos.x, playerPos.y).type == CellType.ENTRANCE;
     }
 
