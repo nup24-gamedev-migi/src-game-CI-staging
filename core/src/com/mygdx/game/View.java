@@ -88,13 +88,13 @@ public class View {
 
         modelBatch.begin(cam);
         // FIXME this is some lame shit right here
-        if (shadowModels.isEmpty() && model.getIsTreasureStolen()) {
+        if (shadowModels.isEmpty() && model.isTreasureStolen()) {
             shadowModels = buildShadowSegments(model)
                     .stream()
                     .map(x -> buildShadow(x, shadow, shadowHand))
                     .collect(Collectors.toList());
         }
-        if (!shadowModels.isEmpty() && model.getIsTreasureStolen()) {
+        if (!shadowModels.isEmpty() && model.isTreasureStolen()) {
             shadowModels.stream()
                     .map(ModelInstance::new)
                     .forEach(modelBatch::render);
@@ -332,7 +332,7 @@ public class View {
     }
 
     private void drawPlayerTrace(final Logic logic) {
-        if (logic.getIsTreasureStolen()) {
+        if (logic.isTreasureStolen()) {
             return;
         }
         
@@ -431,7 +431,7 @@ public class View {
                     case FLOOR -> grass[((x << 16) ^ y) % grass.length];
                     case WALL -> null;
                     case ENTRANCE -> badLogic64;
-                    case TREASURE -> logic.getIsTreasureStolen() ? grass[((x << 16) ^ y) % grass.length] : chest;
+                    case TREASURE -> logic.isTreasureStolen() ? grass[((x << 16) ^ y) % grass.length] : chest;
                 };
 
                 if (tileTexture == null) {
