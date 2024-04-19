@@ -37,8 +37,8 @@ jobs:
       - name: Upload file
         uses: actions/upload-artifact@master
         with:
-          name: my-artifact
-          path: .
+          name: transfer-jar
+          path: game.jar
   ship-jars:
     name: Ship the jars
     needs: jar-stuff
@@ -47,8 +47,8 @@ jobs:
       - name: Load file
         uses: actions/download-artifact@master
         with:
-          name: my-artifact
-          path: .
+          name: transfer-jar
+          path: game.jar
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
