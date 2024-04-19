@@ -88,13 +88,13 @@ public class View {
 
         modelBatch.begin(cam);
         // FIXME this is some lame shit right here
-        if (shadowModels.isEmpty() && model.getIsTreasureStolen()) {
+        if (shadowModels.isEmpty() && model.isTreasureStolen()) {
             shadowModels = buildShadowSegments(model)
                     .stream()
                     .map(x -> buildShadow(x, shadow, shadowHand))
                     .collect(Collectors.toList());
         }
-        if (!shadowModels.isEmpty() && model.getIsTreasureStolen()) {
+        if (!shadowModels.isEmpty() && model.isTreasureStolen()) {
             shadowModels.stream()
                     .map(ModelInstance::new)
                     .forEach(modelBatch::render);
@@ -146,14 +146,22 @@ public class View {
         );
     }
 
-    final Logic.Pos shadowStart(final Logic logic) {
-        final Logic.Pair pair = logic.getHistory().get(0);
-        final Logic.Pos t = pair.pos.applyDir(pair.dir);
+    final Integer shadowStart(final Logic logic) {
+        //final Logic.Pair pair = logic.getHistory().get(0);
+        //final Logic.Pos t = pair.pos.applyDir(pair.dir);
 
-        return new Logic.Pos(
-                pair.pos.x - (t.x - pair.pos.x),
-                pair.pos.y - (t.y - pair.pos.y)
-        );
+//        return new Logic.Pos(
+//                pair.pos.x - (t.x - pair.pos.x),
+//                pair.pos.y - (t.y - pair.pos.y)
+//        );
+        final List<Logic.Pair> history = logic.getHistory();
+        for (int i = 0; i < history.size(); i++) {
+            final Logic.Pos pos = history.get(i).pos;
+            if (logic.getCell(pos.x, pos.y).hasShadow) {
+                return i;
+            }
+        }
+        return null;
     }
 
     private boolean isDir(final Logic.Pos l, final Logic.Pos r) {
@@ -166,25 +174,32 @@ public class View {
     private List<List<Logic.Pos>> buildShadowSegments(final Logic logic) {
         final List<List<Logic.Pos>> res = new ArrayList<>();
 
-        Logic.Pos prev = shadowStart(logic);
-        res.add(new ArrayList<>(Collections.singleton(prev)));
-        for (final Logic.Pair pair : logic.getHistory()) {
+        Integer startIndex = shadowStart(logic);
+        if (startIndex == null) {
+            return res;
+        }
+
+        final Logic.Pos[] prev = {logic.getHistory().get(startIndex).pos};
+
+        res.add(new ArrayList<>(Collections.singleton(prev[0])));
+
+        logic.getHistory().stream().skip(startIndex+1).forEach(pair -> {
             final Logic.Pos end = pair.pos;
             if (!logic.getCell(end.x, end.y).hasShadow) {
-                continue;
+                return;
             }
 
-            if (!isDir(prev, end) && !res.get(res.size() - 1).isEmpty()) {
-                prev = end;
+            if (!isDir(prev[0], end) && !res.get(res.size() - 1).isEmpty()) {
+                prev[0] = end;
 
                 res.add(new ArrayList<>());
-                res.get(res.size() - 1).add(prev);
-                continue;
+                res.get(res.size() - 1).add(prev[0]);
+                return;
             }
 
-            prev = end;
+            prev[0] = end;
             res.get(res.size() - 1).add(end);
-        }
+        });
 
         return res;
     }
@@ -332,7 +347,7 @@ public class View {
     }
 
     private void drawPlayerTrace(final Logic logic) {
-        if (logic.getIsTreasureStolen()) {
+        if (logic.isTreasureStolen()) {
             return;
         }
         
@@ -431,7 +446,7 @@ public class View {
                     case FLOOR -> grass[((x << 16) ^ y) % grass.length];
                     case WALL -> null;
                     case ENTRANCE -> badLogic64;
-                    case TREASURE -> chest;
+                    case TREASURE -> logic.isTreasureStolen() ? grass[((x << 16) ^ y) % grass.length] : chest;
                 };
 
                 if (tileTexture == null) {
