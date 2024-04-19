@@ -48,7 +48,7 @@ jobs:
         uses: actions/download-artifact@master
         with:
           name: transfer-jar
-          path: ./game.jar
+          path: .
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
